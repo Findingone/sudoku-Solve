@@ -1,13 +1,14 @@
 #include <iostream>
 #include <vector>
 
+#include "findPossible.h"
 #include "printer.h"
 #include "removeAccess.h"
 using namespace std;
 
 vector<vector<vector<int>>> solver(9, vector<vector<int>>(9));
 
-vector<vector<int>> checkPossible(vector<vector<int>> sudoku) {
+vector<vector<int>> fillPossible(vector<vector<int>> sudoku) {
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             if (solver.at(i).at(j).size() == 1 &&
@@ -37,11 +38,10 @@ int main() {
         }
     }
     cout << "\n";
+    sudoku = findPossible(sudoku);
     for (int i = 0; i < 20; i++) {
-        sudoku = checkPossible(sudoku);
+        sudoku = fillPossible(sudoku);
     }
-    vectorPrint(solver);
-    cout << "\n";
     sudokuPrint(sudoku);
     return 0;
 }
