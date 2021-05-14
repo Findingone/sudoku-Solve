@@ -20,7 +20,29 @@ vector<vector<int>> fillPossible(vector<vector<int>> sudoku) {
     }
     return sudoku;
 }
-
+void checkFill(vector<vector<int>> sudoku) {
+    vector<int> row{0, 0, 0, 0, 0, 0, 0, 0, 0}, col{0, 0, 0, 0, 0, 0, 0, 0, 0};
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            row.at(i) += sudoku.at(i).at(j);
+            col.at(j) += sudoku.at(i).at(j);
+        }
+    }
+    int check = 0;
+    for (int i = 0; i < 9; i++) {
+        if (row.at(i) != 45) {
+            check++;
+        }
+        if (col.at(i) != 45) {
+            check++;
+        }
+    }
+    if (check == 0) {
+        cout << "TRUE";
+    } else {
+        cout << "False";
+    }
+}
 int main() {
     vector<int> numbers{1, 2, 3, 4, 5, 6, 7, 8, 9};
     for (int i = 0; i < 9; i++) {
@@ -38,10 +60,11 @@ int main() {
         }
     }
     cout << "\n";
-    sudoku = findPossible(sudoku);
     for (int i = 0; i < 20; i++) {
+        sudoku = findPossible(sudoku);
         sudoku = fillPossible(sudoku);
     }
     sudokuPrint(sudoku);
+    checkFill(sudoku);
     return 0;
 }
